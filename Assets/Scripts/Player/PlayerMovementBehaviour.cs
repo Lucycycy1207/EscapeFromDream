@@ -38,7 +38,9 @@ public class PlayerMovementBehaviour : MonoBehaviour
         animator.SetBool("BackwardWalk", false);
         animator.SetBool("GoLeft", false);
         animator.SetBool("GoRight", false);
+
         initMoveSpeed = moveSpeed;
+        initStepOffset = characterController.stepOffset;
     }
 
     // Update is called once per frame
