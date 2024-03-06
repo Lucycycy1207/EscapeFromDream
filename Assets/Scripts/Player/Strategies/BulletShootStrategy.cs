@@ -20,7 +20,7 @@ public class BulletShootStrategy : IShootStrategy
     {
         PooledObject pooledObject = interactor.bulletPool.GetPooledObject();
         pooledObject.gameObject.SetActive(true);
-
+        //Debug.Log("bullet is shooted");
         //Rigidbody bullet = Instantiate(bulletPrefab, shootPoint.position, shootPoint.rotation);
         Rigidbody bullet = pooledObject.GetComponent<Rigidbody>();
         bullet.transform.position = shootPoint.position;

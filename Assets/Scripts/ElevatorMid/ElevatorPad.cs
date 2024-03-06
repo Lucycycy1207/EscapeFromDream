@@ -5,10 +5,16 @@ using UnityEngine.Events;
 
 public class ElevatorPad : MonoBehaviour, ISelectable
 {
-    public UnityEvent ElevatorMove;
+    public UnityEvent ElevatorMove, levelComplete;
 
     [SerializeField] Transform nextPosition;
+    
+    private bool active;
 
+    private void Start()
+    {
+        active = true;
+    }
     public void OnHoverEnter()
     {
         Debug.Log("Start the elevator");
@@ -21,9 +27,12 @@ public class ElevatorPad : MonoBehaviour, ISelectable
 
     public void OnSelect()
     {
+        active = false;
         Debug.Log("elevator start to move");
         gameObject.transform.GetComponent<BoxCollider>().enabled = false;
-        ElevatorMove.Invoke();
+        //end current level
+        levelComplete?.Invoke();
+        ElevatorMove?.Invoke();
     }
 
 }

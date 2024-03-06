@@ -6,7 +6,8 @@ public class DestroyableObject : MonoBehaviour, IDestroyable
 {
     public void OnCollided()
     {
-        Destroy(gameObject, 2.0f);
+        Debug.Log("destroy cube");
+        Destroy(gameObject, 0.5f);
     }
 
     

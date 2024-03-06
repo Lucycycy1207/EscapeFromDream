@@ -6,6 +6,7 @@ public class Bullet : MonoBehaviour
 {
     private void OnCollisionEnter(Collision collision)
     {
+        Debug.Log("collision by bullet");
         IDestroyable destroyable = collision.gameObject.GetComponent<IDestroyable>();
         if (destroyable != null)
         {
@@ -15,4 +16,6 @@ public class Bullet : MonoBehaviour
         }
         
     }
+  
+
 }

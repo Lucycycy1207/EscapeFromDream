@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         //Go to the briefing state of the game
         if (levels.Length > 0)
         {
@@ -76,9 +77,12 @@ public class GameManager : MonoBehaviour
                 GameEnd(); break;
         }
     }
+    /// <summary>
+    /// Disable Player Input
+    /// </summary>
     private void StartBriefing()
     {
-        Debug.Log("Briefing Started");
+        Debug.Log($"Briefing Started: {currentLevel.gameObject.name}");
 
         //Disable Player Input
         isInputActive = false;
@@ -87,6 +91,9 @@ public class GameManager : MonoBehaviour
         ChangeState(GameState.LevelStart, currentLevel);
     }
 
+    /// <summary>
+    /// StartLevel event is called
+    /// </summary>
     private void InitLevel()
     {
         Debug.Log("Level Initialised");
@@ -101,17 +108,22 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("Level Running");
 
-        //Go to the next level
-        if (currentLevelIndex < levels.Length - 1)
+        if (levels.Length > 0)
         {
-            ChangeState(GameState.LevelStart, levels[++currentLevelIndex]);
+            ChangeState(GameState.LevelEnd, levels[currentLevelIndex]);
         }
-        
+
     }
 
     private void CompleteLevel()
     {
-        Debug.Log("Level Completed");
+        Debug.Log($"Level Completed: {currentLevel.gameObject.name} with index {currentLevelIndex}");
+     
+        //Go to the briefing state of the next level
+        if (currentLevelIndex < levels.Length - 1)
+        {
+            ChangeState(GameState.LevelStart, levels[++currentLevelIndex]);
+        }
     }
 
     private void GameOver()
