@@ -6,17 +6,19 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
+    
     [SerializeField] private Health playerHealth;
     [SerializeField] private Timer timer;
-    
-
 
 
     [Header("UI Elements")]
+    public Transform InGameGroup;
     public TMP_Text timerText;
     public TMP_Text healthTxt;
-
     public GameObject gameOverTxt;
+
+    [Header("UI Instruction")]
+    public GameObject InstructionGroup;
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +26,10 @@ public class UIManager : MonoBehaviour
         gameOverTxt.SetActive(false);
     }
 
+    public void SetInGameUI(bool value)
+    {
+        InGameGroup.gameObject.SetActive(value);
+    }
     private void OnEnable()
     {
         playerHealth.OnHealthUpdated += OnHealthUpdate;

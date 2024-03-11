@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -11,20 +12,35 @@ using UnityEngine.Events;
 public class DoorKey : MonoBehaviour, ISelectable
 {
     public UnityEvent ActiveDoor;
+    Transform childCanvas;
 
+    private void Start()
+    {
+        childCanvas = transform.Find("Canvas");
+        childCanvas.gameObject.SetActive(false);
+    }
     public void OnHoverEnter()
     {
-        Debug.Log("press E to PickUp door key");
-        
+        //TODO: show
+        //Debug.Log("press E to PickUp door key");
+        childCanvas.gameObject.SetActive(true);
+
     }
 
     public void OnHoverExit()
     {
+        //TODO: disable UI
+        if (childCanvas != null)
+        {
+            childCanvas.gameObject.SetActive(false);
+        }
+        
     }
 
     public void OnSelect()
     {
-        Debug.Log("door key is picked");
+        //Debug.Log("door key is picked");
+        //TODO: picking sound
         ActiveDoor.Invoke();
         Destroy(gameObject);
     }

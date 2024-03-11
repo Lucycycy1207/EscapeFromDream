@@ -20,13 +20,14 @@ public class PlayerInput : MonoBehaviour
 
     public bool weapon1Pressed { get; private set; }
     public bool weapon2Pressed { get; private set; }
-
     public bool commandPressed { get; private set; }
 
     public bool clear; //clear all the input
 
     private static PlayerInput instance;
 
+
+    public bool isActive { private set; get; }
     public static PlayerInput GetInstance()
     {
         return instance;
@@ -41,19 +42,24 @@ public class PlayerInput : MonoBehaviour
         }
 
         instance = this;
+
+        isActive = true;
     }
 
-    // Start is called before the first frame update
-    void Start()
+    public void SetInputStatus(bool value)
     {
-        
+        isActive = value;
     }
 
     // Update is called once per frame
     void Update()
     {
         ClearInputs();
-        ProcessInputs();
+        if (isActive)
+        {
+            ProcessInputs();
+        }
+        
     }
 
     void ProcessInputs()

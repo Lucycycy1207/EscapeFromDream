@@ -19,7 +19,7 @@ public class Gun : MonoBehaviour, ISelectable
     {
         Debug.Log("the gun is picked");
         playerGunActive?.Invoke();
-        Destroy(this.transform.parent.gameObject);
+        this.transform.parent.gameObject.SetActive(false);
     }
 
 }

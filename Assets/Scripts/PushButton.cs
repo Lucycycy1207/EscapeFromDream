@@ -9,15 +9,26 @@ public class PushButton : MonoBehaviour, ISelectable
     [SerializeField] private Color defaultColor;
     [SerializeField] private Color hoverColor;
 
+
     public UnityEvent OnPushButton;
+    Transform childCanvas;
+
+    private void Start()
+    {
+        childCanvas = transform.Find("Canvas");
+        childCanvas.gameObject.SetActive(false);
+    }
+
     public void OnHoverEnter()// Û±Í–¸Õ£
     {
         buttonRenderer.material.color = hoverColor;
+        childCanvas.gameObject.SetActive(true);
     }
 
     public void OnHoverExit()
     {
         buttonRenderer.material.color = defaultColor;
+        childCanvas.gameObject.SetActive(false);
     }
 
 
@@ -30,15 +41,4 @@ public class PushButton : MonoBehaviour, ISelectable
         OnPushButton.Invoke();
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

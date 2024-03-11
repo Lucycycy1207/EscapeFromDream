@@ -11,18 +11,29 @@ public class ElevatorPad : MonoBehaviour, ISelectable
     
     private bool active;
 
+    Transform childCanvas;
+
     private void Start()
     {
         active = true;
+        childCanvas = transform.Find("Canvas");
+        childCanvas.gameObject.SetActive(false);
+        
     }
     public void OnHoverEnter()
     {
         Debug.Log("Start the elevator");
+        childCanvas.gameObject.SetActive(true);
 
     }
 
     public void OnHoverExit()
     {
+        //TODO: disable UI
+        if (childCanvas != null)
+        {
+            childCanvas.gameObject.SetActive(false);
+        }
     }
 
     public void OnSelect()
@@ -30,8 +41,7 @@ public class ElevatorPad : MonoBehaviour, ISelectable
         active = false;
         Debug.Log("elevator start to move");
         gameObject.transform.GetComponent<BoxCollider>().enabled = false;
-        //end current level
-        levelComplete?.Invoke();
+
         ElevatorMove?.Invoke();
     }
 

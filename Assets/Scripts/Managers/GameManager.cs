@@ -108,10 +108,10 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("Level Running");
 
-        if (levels.Length > 0)
-        {
-            ChangeState(GameState.LevelEnd, levels[currentLevelIndex]);
-        }
+        //if (levels.Length > 0)
+        //{
+        //    ChangeState(GameState.LevelEnd, levels[currentLevelIndex]);
+        //}
 
     }
 

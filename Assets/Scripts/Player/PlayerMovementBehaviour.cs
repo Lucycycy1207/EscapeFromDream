@@ -16,7 +16,6 @@ public class PlayerMovementBehaviour : MonoBehaviour
     [SerializeField] private LayerMask groundMask;
     [SerializeField] private float groundCheckDistance;
 
-    private Animator animator;
 
     private float initMoveSpeed;
     private float initStepOffset;
@@ -25,19 +24,14 @@ public class PlayerMovementBehaviour : MonoBehaviour
     private Vector3 playerVelocity;
     public bool isGrounded { get; private set; }
     private float moveMultiplier = 1.0f;
+
+    public Vector3 MovementVector { get; private set; }
     // Start is called before the first frame update
     void Awake()
     {
         characterController = GetComponent<CharacterController>();
 
         playerInput = PlayerInput.GetInstance();
-
-        animator = GetComponent<Animator>();
-        animator.SetBool("Idle", true);
-        animator.SetBool("ForwardWalk", false);
-        animator.SetBool("BackwardWalk", false);
-        animator.SetBool("GoLeft", false);
-        animator.SetBool("GoRight", false);
 
         initMoveSpeed = moveSpeed;
         initStepOffset = characterController.stepOffset;
@@ -48,28 +42,8 @@ public class PlayerMovementBehaviour : MonoBehaviour
     {
         GroundCheck();
         MovePlayer();
-        UpdateAnimation();
     }
-    private void UpdateAnimation()
-    {
-        //turn and jump is well done
 
-        //moving animation
-        
-        
-        animator.SetBool("ForwardWalk", playerInput.vertical > 0);
-        animator.SetBool("BackwardWalk", playerInput.vertical < 0);
-        animator.SetBool("Run", playerInput.sprintHeld && playerInput.vertical > 0);
-        animator.SetBool("BackRun", playerInput.sprintHeld && playerInput.vertical < 0);
-
-        animator.SetBool("GoLeft", playerInput.horizontal<0);
-        animator.SetBool("GoRight", playerInput.horizontal>0);
-        
-        animator.SetBool("Idle", GetForwardSpeed()==0);
-
-
-
-    }
     private void GroundCheck()
     {
         isGrounded = Physics.CheckSphere(groundCheck.position, groundCheckDistance, groundMask);
@@ -79,8 +53,11 @@ public class PlayerMovementBehaviour : MonoBehaviour
     {
         moveMultiplier = playerInput.sprintHeld ? sprintMultiplier : 1.0f;
 
-        characterController.Move((transform.forward * playerInput.vertical + transform.right * playerInput.horizontal)
-            * moveSpeed * moveMultiplier * Time.deltaTime);
+        MovementVector = (transform.forward * playerInput.vertical + transform.right * playerInput.horizontal)
+            * moveSpeed * moveMultiplier * Time.deltaTime;
+
+       
+        characterController.Move(MovementVector);
 
         //Ground Check
         if (isGrounded && playerVelocity.y < 0)

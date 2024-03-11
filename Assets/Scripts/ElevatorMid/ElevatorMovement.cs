@@ -7,7 +7,8 @@ public class ElevatorMovement : MonoBehaviour
 {
     [SerializeField] private Transform nextPostion;
     [SerializeField] GameObject player;
-
+    [SerializeField] LevelManager levelManager;
+    
     public UnityEvent playerReset;
     
     public void MoveElevator()
@@ -19,6 +20,9 @@ public class ElevatorMovement : MonoBehaviour
         this.gameObject.transform.rotation = nextPostion.rotation;
         this.gameObject.transform.localScale = nextPostion.localScale;
         RestoreChanges();
+
+        levelManager.EndLevel();
+        Debug.Log("end of level 1");
     }
 
     private void RestoreChanges()

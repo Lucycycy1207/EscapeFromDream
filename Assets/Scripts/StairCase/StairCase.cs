@@ -99,6 +99,7 @@ public class StairCase : MonoBehaviour
             {
                 Debug.Log("from teleport, ignore");
                 teleport = false;
+                point.transform.GetComponent<CheckPoint>().ReduceTimes();
             }
 
             //check if it is the first time reach here, if no, check poster 3, 

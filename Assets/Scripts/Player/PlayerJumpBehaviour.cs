@@ -13,30 +13,16 @@ public class PlayerJumpBehaviour : Interactor
 
     private PlayerMovementBehaviour playerMovementBehaviour;
 
-    private Animator animator;
-
-    void Awake()
-    {
-        animator = GetComponent<Animator>();
-        animator.SetBool("Jump", false);
-    }
 
     public override void Interact()
     {
         if (playerMovementBehaviour == null) playerMovementBehaviour = GetComponent<PlayerMovementBehaviour>();
 
-        
+        //Debug.Log("START");
+
         if (playerInput.jumpPressed && playerMovementBehaviour.isGrounded)
         {
             playerMovementBehaviour.SetYVelocity(jumpVelocity);
-
-            //Debug.Log("jump");
-            animator.SetBool("Jump", true);
         }
-        else
-        {
-            animator.SetBool("Jump", false);
-        }
-
     }
 }

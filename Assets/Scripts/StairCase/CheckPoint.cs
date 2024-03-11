@@ -3,12 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class CheckPoint : MonoBehaviour
 {
     [SerializeField] private StairCase stairCase;
-    private int times = 0;
+    private int times;
     [SerializeField] private bool isLast;
+
 
     private void OnEnable()
     {
@@ -26,6 +28,7 @@ public class CheckPoint : MonoBehaviour
             else
             {
                 Debug.Log("call end level");
+
                 stairCase.GameFinish();
             }
             
@@ -36,4 +39,9 @@ public class CheckPoint : MonoBehaviour
         times = 0;
     }
 
+
+    public void ReduceTimes()
+    {
+        times -= 1;
+    }
 }
