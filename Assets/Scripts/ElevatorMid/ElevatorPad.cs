@@ -22,7 +22,7 @@ public class ElevatorPad : MonoBehaviour, ISelectable
     }
     public void OnHoverEnter()
     {
-        Debug.Log("Start the elevator");
+        //Debug.Log("Start the elevator");
         childCanvas.gameObject.SetActive(true);
 
     }

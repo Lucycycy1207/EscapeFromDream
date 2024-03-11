@@ -14,6 +14,7 @@ public class NewLevelPoint : MonoBehaviour
         {
             Debug.Log("trigger success");
             EnableInstruction?.Invoke();
+            this.gameObject.SetActive(false);
 
         }
     }
