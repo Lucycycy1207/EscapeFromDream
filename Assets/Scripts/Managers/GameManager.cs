@@ -5,6 +5,8 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private LevelManager[] levels;
+    [SerializeField] private Timer timer;
+
     public static GameManager Instance;
 
     private GameState currentState;
@@ -34,6 +36,11 @@ public class GameManager : MonoBehaviour
         return isInputActive;
     }
 
+
+    private void OnEnable()
+    {
+        timer.OnTimeOut += GameLose;
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -41,7 +48,7 @@ public class GameManager : MonoBehaviour
         //Go to the briefing state of the game
         if (levels.Length > 0)
         {
-            ChangeState(GameState.Briefing, levels[currentLevelIndex]);
+            UpdateState(GameState.Briefing, levels[currentLevelIndex]);
         }
     }
 
@@ -51,12 +58,12 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public void ChangeState(GameState state, LevelManager level)
+    public void UpdateState(GameState state, LevelManager level)
     {
         currentState = state;
         currentLevel = level;
-
-        switch(currentState)
+    
+        switch (state)
         {
             case GameState.Briefing:
                 StartBriefing(); break;
@@ -77,6 +84,7 @@ public class GameManager : MonoBehaviour
                 GameEnd(); break;
         }
     }
+
     /// <summary>
     /// Disable Player Input
     /// </summary>
@@ -88,7 +96,7 @@ public class GameManager : MonoBehaviour
         isInputActive = false;
 
         //Start the level
-        ChangeState(GameState.LevelStart, currentLevel);
+        UpdateState(GameState.LevelStart, currentLevel);
     }
 
     /// <summary>
@@ -100,7 +108,7 @@ public class GameManager : MonoBehaviour
         isInputActive = true;
 
         currentLevel.StartLevel();
-        ChangeState(GameState.LevelIn, currentLevel);
+        UpdateState(GameState.LevelIn, currentLevel);
 
             
     }
@@ -122,13 +130,14 @@ public class GameManager : MonoBehaviour
         //Go to the briefing state of the next level
         if (currentLevelIndex < levels.Length - 1)
         {
-            ChangeState(GameState.LevelStart, levels[++currentLevelIndex]);
+            UpdateState(GameState.LevelStart, levels[++currentLevelIndex]);
         }
     }
 
     private void GameOver()
     {
         Debug.Log("Level game over");
+
     }
 
     private void GameEnd()

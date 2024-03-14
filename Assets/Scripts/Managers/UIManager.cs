@@ -66,9 +66,4 @@ public class UIManager : MonoBehaviour
         timer.OnTimerUpdate -= OnTimerUpdate;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

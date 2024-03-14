@@ -21,12 +21,12 @@ public class LevelManager : MonoBehaviour
         if (isFinalLevel)
         {
             //TODO: Let game manager know to change game state to Game end
-            GameManager.GetInstance().ChangeState(GameManager.GameState.GameEnd, this);
+            GameManager.GetInstance().UpdateState(GameManager.GameState.GameEnd, this);
         }
         else
         {
             //TODO: change game state to level end
-            GameManager.GetInstance().ChangeState(GameManager.GameState.LevelEnd, this);
+            GameManager.GetInstance().UpdateState(GameManager.GameState.LevelEnd, this);
         }
     }
 }

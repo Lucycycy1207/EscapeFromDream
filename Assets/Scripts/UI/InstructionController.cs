@@ -56,7 +56,7 @@ public class InstructionController : MonoBehaviour
         backGroundImg.enabled = true;
         continueUI.enabled = true;
         instructionList[++currentIndex].gameObject.SetActive(true);
-        Debug.Log("current: " + currentIndex);
+       
         isActive = true;
     }
 
@@ -79,7 +79,7 @@ public class InstructionController : MonoBehaviour
                 isActive = false;
                 if (continueIndex.Contains(currentIndex))
                 {
-                    Debug.Log(currentIndex);
+              
                     ShowNextInstruction();
                 }
                 else if (currentIndex == breifing1EndIndex)

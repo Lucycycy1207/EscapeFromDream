@@ -1,7 +1,4 @@
 
-using System.Collections.Generic;
-using System.Security.Cryptography;
-using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerMovementBehaviour))]
@@ -17,10 +14,7 @@ public class PlayerAnim : MonoBehaviour
         return instance;
     }
 
-    public void SetWaving(bool value)
-    {
-        animator.SetBool("Waving", value);
-    }
+
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -33,6 +27,11 @@ public class PlayerAnim : MonoBehaviour
 
         animator = GetComponent<Animator>();
         playerInput = PlayerInput.GetInstance();
+    }
+
+    public void SetParameter(string name)
+    {
+        animator.SetBool(name, animator.GetBool(name)?false:true);
     }
 
     private void Start()
