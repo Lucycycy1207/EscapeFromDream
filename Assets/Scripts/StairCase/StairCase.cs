@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class StairCase : MonoBehaviour
 {
+    [SerializeField] InstructionController instructionController;
     [SerializeField] private LevelManager levelManager;
     [SerializeField] private Transform[] Points;
     [SerializeField] private GameObject player;
@@ -21,7 +22,10 @@ public class StairCase : MonoBehaviour
     private bool isChecking = false;
     [SerializeField] private float distanceOffset = 1.5f;
 
-
+    private void OnEnable()
+    {
+        instructionController.endGame += GameFinish;
+    }
 
     private void Start()
     {
@@ -93,19 +97,18 @@ public class StairCase : MonoBehaviour
 
         else if (point.name == "L3L")
         {
-            Debug.Log("reach L3L");
-
-            if (teleport)
-            {
-                Debug.Log("from teleport, ignore");
-                teleport = false;
-                point.transform.GetComponent<CheckPoint>().ReduceTimes();
-            }
+            //if (teleport)
+            //{
+            //    Debug.Log("from teleport, ignore");
+            //    teleport = false;
+            //    point.transform.GetComponent<CheckPoint>().ReduceTimes();
+            //    return;
+            //}
 
             //check if it is the first time reach here, if no, check poster 3, 
-            else if (times % 2 == 0 && times != 0)//odd, first time
+            if (times % 2 == 0 && times != 0)//even time, check
             {
-                
+                Debug.Log("reach L3L");
                 //check the poster is abnormal
                 if (poster.getPosterValue(2) == false)
                 {
@@ -154,7 +157,9 @@ public class StairCase : MonoBehaviour
     {
         Debug.Log("end level");
         levelManager.EndLevel();
+
     }
+
 
     enum StairCasePoint
     {

@@ -8,7 +8,7 @@ public class Timer : MonoBehaviour
 {
     [SerializeField] private float maxTime = 5f;
     [SerializeField] UIManager uiManager;
-    [SerializeField] private RawImage ShadowImg;
+    //[SerializeField] private RawImage ShadowImg;
 
     private Color shadowColor;
     
@@ -18,28 +18,33 @@ public class Timer : MonoBehaviour
     public Action<float> OnTimerUpdate;
     public Action OnTimeOut;
 
-    private float shadowRate;
+    //private float shadowRate;
     private float currentTime;
 
 
-    
+    public bool isActive { get; set; }
 
     // Start is called before the first frame update
     void Start()
     {
+        isActive = true;
         time = maxTime;
         OnTimerUpdate(maxTime);
-        shadowColor = ShadowImg.color;
+        //shadowColor = ShadowImg.color;
         shadowColor.a = 0;
 
-        ShadowImg.color = shadowColor;
+        //ShadowImg.color = shadowColor;
 
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        DeductTime();
+        if (isActive)
+        {
+            DeductTime();
+        }
+        
     }
 
     public void DeductTime()
@@ -54,8 +59,8 @@ public class Timer : MonoBehaviour
             time = 0;
         }
         
-        shadowColor.a = (maxTime-time)/maxTime;
-        ShadowImg.color = shadowColor;
+        //shadowColor.a = (maxTime-time)/maxTime;
+        //ShadowImg.color = shadowColor;
         OnTimerUpdate(time);
     }
 }

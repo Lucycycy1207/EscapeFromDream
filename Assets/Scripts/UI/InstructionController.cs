@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,14 +13,23 @@ public class InstructionController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI continueUI;
     [SerializeField] private LevelManager briefing1;
     [SerializeField] private LevelManager briefingEnd1;
+    [SerializeField] private Timer timer;
+
     private PlayerInput playerInput;
 
     Transform[] instructionList;
 
-    private int currentIndex;
+    private int currentIndex = -1;
+
+    [SerializeField] private int[] continueIndex;
+    [SerializeField] private int breifing1EndIndex;
+    [SerializeField] private int End1Index;
 
     private bool isActive;
     [SerializeField] private int totalInstructions = 9;
+
+
+    public Action endGame;
 
     private void Awake()
     {
@@ -45,13 +55,14 @@ public class InstructionController : MonoBehaviour
         playerInput.SetInputStatus(false);
         backGroundImg.enabled = true;
         continueUI.enabled = true;
-        instructionList[currentIndex].gameObject.SetActive(true);
+        instructionList[++currentIndex].gameObject.SetActive(true);
+        Debug.Log("current: " + currentIndex);
         isActive = true;
     }
 
     public void DisableInstruction()
     {
-        instructionList[currentIndex++].gameObject.SetActive(false);
+        instructionList[currentIndex].gameObject.SetActive(false);
         continueUI.enabled = false;
         backGroundImg.enabled = false;
         playerInput.SetInputStatus(true);
@@ -66,17 +77,19 @@ public class InstructionController : MonoBehaviour
             {
                 DisableInstruction();
                 isActive = false;
-                if (currentIndex == 1)
+                if (continueIndex.Contains(currentIndex))
                 {
+                    Debug.Log(currentIndex);
                     ShowNextInstruction();
                 }
-                else if (currentIndex == 2)
+                else if (currentIndex == breifing1EndIndex)
                 {
                     briefing1.EndLevel();
                 }
-                else if (currentIndex == 7)
+                else if (currentIndex == End1Index)
                 {
-                    briefingEnd1.EndLevel();
+                    Debug.Log("end in instruction");
+                    endGame?.Invoke();
                 }
             }
         }

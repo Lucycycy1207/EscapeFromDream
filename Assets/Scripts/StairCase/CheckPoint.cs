@@ -20,7 +20,7 @@ public class CheckPoint : MonoBehaviour
     {
         if (other.transform.CompareTag("Player"))
         {
-            Debug.Log($"{this.name} Trigger entered!");
+            Debug.Log($"{this.name} Trigger entered with time {times}!");
             if (isLast == false)
             {
                 stairCase.CheckPointUpdate(this.transform, ++times);
@@ -28,8 +28,7 @@ public class CheckPoint : MonoBehaviour
             else
             {
                 Debug.Log("call end level");
-
-                stairCase.GameFinish();
+                //stairCase.GameFinish();
             }
             
         }
