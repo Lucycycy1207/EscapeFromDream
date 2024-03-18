@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] private LevelManager[] levels;
     [SerializeField] private Timer timer;
+    [SerializeField] private TimeLineManager timelineManager;
 
     public static GameManager Instance;
 
@@ -14,6 +15,8 @@ public class GameManager : MonoBehaviour
 
     private LevelManager currentLevel;
     private int currentLevelIndex;
+
+    [SerializeField] private int GameTimer;
 
     private void Awake()
     {
@@ -36,26 +39,35 @@ public class GameManager : MonoBehaviour
         return isInputActive;
     }
 
+    public int GetGameTimer()
+    {
+        return GameTimer;
+    }
 
+    private void Start()
+    {
+        
+    }
     private void OnEnable()
     {
         timer.OnTimeOut += GameLose;
     }
-    // Start is called before the first frame update
-    void Start()
-    {
-
-        //Go to the briefing state of the game
-        if (levels.Length > 0)
-        {
-            UpdateState(GameState.Briefing, levels[currentLevelIndex]);
-        }
-    }
+    
 
     // Update is called once per frame
     void Update()
     {
 
+    }
+
+    public void StartGame()
+    {
+        PlayerInput.GetInstance().SetCursor(false);
+        //Go to the briefing state of the game
+        if (levels.Length > 0)
+        {
+            UpdateState(GameState.Briefing, levels[currentLevelIndex]);
+        }
     }
 
     public void UpdateState(GameState state, LevelManager level)
@@ -143,11 +155,18 @@ public class GameManager : MonoBehaviour
     private void GameEnd()
     {
         Debug.Log("Game ended and u win");
+        UIManager.GetInstance().SetInGameUI(false);
+        PlayerInput.GetInstance().SetInputStatus(false);
+        timelineManager.ActiveTimeLine(2);
     }
 
     private void GameLose()
     {
         Debug.Log("Game ended and u lose");
+        UIManager.GetInstance().SetInGameUI(false);
+        PlayerInput.GetInstance().SetInputStatus(false);
+        timelineManager.ActiveTimeLine(1);
+
     }
 
 

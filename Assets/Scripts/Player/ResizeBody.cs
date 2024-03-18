@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,7 +12,7 @@ public class ResizeBody : MonoBehaviour
     [SerializeField] private float shrinkSize = 0.10f;
     [SerializeField] private float shrinkStepOffset = 0.06f;
 
-
+    [SerializeField] private CinemachineDollyCart deadCart;
     private Vector3 originSize;
     private void Start()
     {
@@ -23,6 +24,9 @@ public class ResizeBody : MonoBehaviour
         playerMovement.ChangeMoveSpeed(ShrinkMoveSpeed);
         playerMovement.ChangeStepOffset(shrinkStepOffset);
         this.transform.localScale = new Vector3(shrinkSize, shrinkSize, shrinkSize);
+        
+        deadCart.m_Speed /= shrinkSize;
+
     }
 
     public void ChangeToDefault()

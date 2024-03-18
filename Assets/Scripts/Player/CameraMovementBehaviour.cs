@@ -12,15 +12,17 @@ public class CameraMovementBehaviour : MonoBehaviour
     [SerializeField] private bool invertMouse;
 
     private float camXRotation;
+
+
+
     // Start is called before the first frame update
     void Start()
     {
-        //Hide Mouse
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
 
         playerInput = PlayerInput.GetInstance();
     }
+
+
 
     // Update is called once per frame
     void Update()

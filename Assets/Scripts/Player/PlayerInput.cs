@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
+//using UnityEngine.UIElements;
 
 [DefaultExecutionOrder(-100)]
 public class PlayerInput : MonoBehaviour
@@ -43,9 +43,13 @@ public class PlayerInput : MonoBehaviour
 
         instance = this;
 
-        isActive = true;
+        isActive = false;
     }
 
+    /// <summary>
+    /// Enable/Disable player input.
+    /// </summary>
+    /// <param name="value"></param>
     public void SetInputStatus(bool value)
     {
         isActive = value;
@@ -107,5 +111,21 @@ public class PlayerInput : MonoBehaviour
         weapon2Pressed = false;
 
         commandPressed = false;
+    }
+
+    public void SetCursor(bool status)
+    {
+        if (status)
+        {
+            //Show Mouse
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+        else
+        {
+            //Hide Mouse
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
     }
 }

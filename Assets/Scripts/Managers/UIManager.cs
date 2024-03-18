@@ -20,6 +20,23 @@ public class UIManager : MonoBehaviour
     [Header("UI Instruction")]
     public GameObject InstructionGroup;
 
+    public static UIManager Instance;
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+    }
+    public static UIManager GetInstance()
+    {
+        return Instance;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -57,6 +74,7 @@ public class UIManager : MonoBehaviour
 
     void OnTimeOut()
     {
+        Debug.Log("time out");
         gameOverTxt.SetActive(true);
     }
 

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class Timer : MonoBehaviour
 {
-    [SerializeField] private float maxTime = 5f;
+    private float maxTime;
     [SerializeField] UIManager uiManager;
     //[SerializeField] private RawImage ShadowImg;
 
@@ -28,6 +28,7 @@ public class Timer : MonoBehaviour
     void Start()
     {
         isActive = true;
+        maxTime = GameManager.GetInstance().GetGameTimer();
         time = maxTime;
         OnTimerUpdate(maxTime);
         //shadowColor = ShadowImg.color;

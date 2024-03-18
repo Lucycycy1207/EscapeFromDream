@@ -29,9 +29,14 @@ public class PlayerAnim : MonoBehaviour
         playerInput = PlayerInput.GetInstance();
     }
 
-    public void SetParameter(string name)
+    public void SetAnimBool(string name)
     {
         animator.SetBool(name, animator.GetBool(name)?false:true);
+    }
+
+    public void SetAnimTrigger(string name)
+    {
+        animator.SetTrigger("Dead");
     }
 
     private void Start()
